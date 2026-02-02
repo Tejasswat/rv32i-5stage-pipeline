@@ -17,27 +17,26 @@ module tb_cpu;
         .if_id_instr(if_id_instr)
     );
 
-    // ------------------------------------
+    // -------------------------------------------------
     // Clock generation: 10 ns period
-    // ------------------------------------
+    // -------------------------------------------------
     initial begin
-        clk = 0;
+        clk = 1'b0;
         forever #5 clk = ~clk;
     end
 
-    // ------------------------------------
-    // Reset + simulation control
-    // ------------------------------------
+    // -------------------------------------------------
+    // Reset & simulation control
+    // -------------------------------------------------
     initial begin
-        // Apply reset
-        reset = 1;
+        reset = 1'b1;
         #20;            // hold reset for 2 cycles
-        reset = 0;
+        reset = 1'b0;
 
-        // Let pipeline run
-        #200;
+        // Let pipeline run for a while
+        #300;
 
-        $display("Simulation finished");
+        $display("Simulation complete");
         $stop;
     end
 

@@ -63,6 +63,11 @@ module cpu_top (
     wire [31:0] id_ex_rs2;
     wire [4:0]  id_ex_rd;
 
+    wire [31:0] imm;
+    
+    wire [31:0] id_ex_imm;
+
+
     
     regfile rf_inst (
         .clk      (clk),
@@ -75,16 +80,26 @@ module cpu_top (
         .rd2      (rs2_val)
     );
     
-    id_ex_reg id_ex_inst (
+   id_ex_reg id_ex_inst (
         .clk         (clk),
         .reset       (reset),
         .rs1_val_in  (rs1_val),
         .rs2_val_in  (rs2_val),
+        .imm_in      (imm),
         .rd_in       (rd),
         .rs1_val_out (id_ex_rs1),
         .rs2_val_out (id_ex_rs2),
+        .imm_out     (id_ex_imm),
         .rd_out      (id_ex_rd)
     );
+
+    
+    imm_gen imm_gen_inst (
+        .instr (if_id_instr),
+        .imm   (imm)
+    );  
+            
+    
 
     // ===== ID/EX PIPELINE REGISTER (end of ID stage) =====
 

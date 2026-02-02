@@ -4,10 +4,12 @@ module id_ex_reg (
 
     input  wire [31:0] rs1_val_in,
     input  wire [31:0] rs2_val_in,
+    input  wire [31:0] imm_in,
     input  wire [4:0]  rd_in,
 
     output reg  [31:0] rs1_val_out,
     output reg  [31:0] rs2_val_out,
+    output reg  [31:0] imm_out,
     output reg  [4:0]  rd_out
 );
 
@@ -15,10 +17,12 @@ module id_ex_reg (
         if (reset) begin
             rs1_val_out <= 32'b0;
             rs2_val_out <= 32'b0;
+            imm_out     <= 32'b0;
             rd_out      <= 5'b0;
         end else begin
             rs1_val_out <= rs1_val_in;
             rs2_val_out <= rs2_val_in;
+            imm_out     <= imm_in;
             rd_out      <= rd_in;
         end
     end
